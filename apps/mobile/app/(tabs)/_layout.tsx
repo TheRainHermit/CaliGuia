@@ -1,33 +1,56 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { Platform } from 'react-native';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+const TAB_ICONS = {
+  explorer: '🗺️',
+  camera: '📸',
+  routes: '🛣️',
+  profile: '👤',
+};
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: '#7e5700',
+        tabBarInactiveTintColor: '#9a9a9a',
         headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        tabBarStyle: {
+          backgroundColor: '#fff8f3',
+          borderTopColor: '#e5d8c8',
+          borderTopWidth: 1,
+          paddingBottom: Platform.OS === 'ios' ? 20 : 0,
+          height: Platform.OS === 'ios' ? 90 : 60,
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="explorer"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Explorador',
+          tabBarLabel: 'Explorador',
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="camera"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Cámara',
+          tabBarLabel: 'Cámara',
+        }}
+      />
+      <Tabs.Screen
+        name="routes"
+        options={{
+          title: 'Rutas',
+          tabBarLabel: 'Rutas',
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Perfil',
+          tabBarLabel: 'Perfil',
         }}
       />
     </Tabs>

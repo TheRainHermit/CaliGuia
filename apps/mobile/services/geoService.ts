@@ -1,10 +1,15 @@
 import * as Location from 'expo-location';
 
 export async function getCurrentLocation() {
-  let { status } = await Location.requestForegroundPermissionsAsync();
-  if (status !== 'granted') {
-    throw new Error('Permiso de ubicación denegado');
+  try {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      throw new Error('Permiso de ubicación denegado');
+    }
+    const location = await Location.getCurrentPositionAsync({});
+    return location.coords;
+  } catch (error) {
+    console.error('Error getting location:', error);
+    return null;
   }
-  let location = await Location.getCurrentPositionAsync({});
-  return location.coords;
 }
